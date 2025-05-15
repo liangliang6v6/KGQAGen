@@ -1,0 +1,14 @@
+python my_wiki.py \
+  --dataset QoG-gpt \
+  --max_length 256 \
+  --temperature_exploration 0.4 \
+  --temperature_reasoning 0 \
+  --width 3 \
+  --depth 3 \
+  --remove_unnecessary_rel True \
+  --LLM_type gpt-4o \
+  --opeani_api_keys sk-xxxx \
+  --num_retain_entity 5 \
+  --prune_tools llm \
+  --addr_list server_urls.txt \
+  --opeani_api_keys xxx

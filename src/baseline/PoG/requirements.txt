@@ -1,0 +1,10 @@
+jsonlines
+json
+openai
+SPARQLWrapper
+tqdm
+argparse
+sentence_transformers
+numpy
+random
+pprint

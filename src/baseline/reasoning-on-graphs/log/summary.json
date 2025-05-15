@@ -1,0 +1,20 @@
+{
+    "LLMs Only": [
+        33.33333333333333,
+        33.33333333333333
+    ],
+    "LLMs + RAG": [
+        0.0,
+        33.33333333333333
+    ],
+    "Overlap correct": [
+        "WebQTest-1"
+    ],
+    "Overlap incorrect": [
+        "WebQTest-0"
+    ],
+    "LLM Only": [
+        "WebQTest-3"
+    ],
+    "RAG Only": []
+}

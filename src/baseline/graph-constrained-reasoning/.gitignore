@@ -1,0 +1,11 @@
+*.pyc
+.vscode/
+logs
+script/
+tmp/
+.env
+save_models
+accelerate_configs/
+wandb/
+data
+results/

@@ -1,0 +1,11 @@
+{
+    "overlap_correct": 27.102803738317753,
+    "llm_correct": 7.165109034267912,
+    "rag_correct": 35.202492211838006,
+    "llm_part_rag_corr": 0.0,
+    "llm_part_rag_incorr": 0.0,
+    "llm_part_rag_part": 0.0,
+    "rag_part_llm_corr": 0.0,
+    "rag_part_llm_incorr": 0.0,
+    "overlap_incorrect": 30.529595015576323
+}
