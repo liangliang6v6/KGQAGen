@@ -1,6 +1,6 @@
 # ✨ KGQAGen: Diagnosing and Addressing Pitfalls in KG-RAG Datasets, toward More Reliable Benchmarking
 
-This is the second stage of the KGQAGen framework. It interactively generates challenging KGQA instances from seed Wikidata entities using an LLM agent and SPARQL querying.
+This is official version of KGQAGen framework. It interactively generates challenging KGQA instances from seed Wikidata entities using an LLM agent and SPARQL querying. Our `KGQAGen-10k` example dataset is available in [https://huggingface.co/datasets/lianglz/KGQAGen-10k](https://huggingface.co/datasets/lianglz/KGQAGen-10k).
 
 ---
 ![KGQAGen Framework Overview](figure.png)
