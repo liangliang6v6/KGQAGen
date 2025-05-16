@@ -33,29 +33,38 @@ SPARQL_HEADERS = {
 
 SPARQL_CHECK = """
 You are given a SPARQL query over Wikidata that returned no results.
-Wrong SPARQL:
+
+Question:
+{question}
+
+Original SPARQL:
 {sparql}
 
-Your task is to revise this query to retrieve correct results from Wikidata.
-Revision Guidelines:
-1. Use only the needed patterns—no OPTIONAL blocks or FILTERs unless essential.
-2. End with one SERVICE wikibase:label clause for English labels.
-3. The structure should be executable on https://query.wikidata.org.
-Return only a single JSON object in the format below—no extra output or markdown:
-{{
-"correct_sparql": "<REVISED SPARQL QUERY HERE>"
-}}
-"""
+Your task is to revise this query so that it retrieves valid results from Wikidata.
 
-"""
+Revision Guidelines:
+1. Use only the necessary triple patterns. Avoid OPTIONAL or FILTER clauses unless absolutely required.
+2. End the query with a single SERVICE wikibase:label clause for retrieving English labels.
+3. Ensure the final query is directly executable on https://query.wikidata.org.
+
+Output Format:
+Return only a single JSON object in the exact format below—no additional text or markdown:
+{{
+  "correct_sparql": "<REVISED SPARQL QUERY HERE>"
+}}
+
 Example 1:
-Wrong SPARQL:
+Question:
+"Which person is a Belarusian citizen born in Moscow, is the father of Barbara Fei, directed the film 'Spring in a Small Town,' and is a member of the Second Generation of Chinese Filmmakers?"
+
+Original SPARQL:
 {{
 "SELECT ?personLabel WHERE {{ ?person wdt:P27 wd:Q29520 ; wdt:P19 wd:Q8686 ; wdt:P22 ?father . wd:Q12118887 wdt:P22 ?person . wd:Q2995574 wdt:P57 ?person . wd:Q96957285 wdt:P527 ?person . SERVICE wikibase:label {{ bd:serviceParam wikibase:language \\\"en\\\" . }} }}"
 }}
-Output:
+
+Expected Output:
 {{
-    "correct_sparql": "SELECT DISTINCT ?personLabel WHERE {{ ?person wdt:P27 wd:Q29520 ; wdt:P19 wd:Q8686 . wd:Q12118887 wdt:P22 ?person . wd:Q2995574 wdt:P57 ?person . wd:Q96957285 wdt:P527 ?person . SERVICE wikibase:label {{ bd:serviceParam wikibase:language \\\"en\\\" . }} }}"
+  "correct_sparql": "SELECT DISTINCT ?personLabel WHERE {{ ?person wdt:P27 wd:Q29520 ; wdt:P19 wd:Q8686 . wd:Q12118887 wdt:P22 ?person . wd:Q2995574 wdt:P57 ?person . wd:Q96957285 wdt:P527 ?person . SERVICE wikibase:label {{ bd:serviceParam wikibase:language \\\"en\\\" . }} }}"
 }}
 """
 
@@ -128,8 +137,9 @@ def clean(entry, max_results=10, timeout=3):
         logger.info(f"[!] ID {entry.get('id')} — Answer not in SPARQL. Skipping. Answer: {set(norm_answers)}, SPARQL: {set(norm_sparql)}, check: {set(norm_answers).issubset(set(norm_sparql))}")
         return None
     
-def check_sparql(sparql:str):
+def check_sparql(sparql:str, question:str):
     user_content = SPARQL_CHECK.format(
+        question=question,
         sparql=sparql,
     )
     resp = client.chat.completions.create(
