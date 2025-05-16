@@ -22,13 +22,13 @@ client = OpenAI(api_key=OPENAI_KEY)
 
 
 TIMESTAMP     = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-BASE_DIR      = Path("output")
+BASE_DIR      = Path("data")
 LOG_DIR       = BASE_DIR / "logs"
 OUTPUT_DIR    = BASE_DIR / f"/dataset"
 SUBGRAPH_DIR  = OUTPUT_DIR / "subgraph/full"
 SUBGRAPH_DIR_PROOF  = OUTPUT_DIR / "subgraph/proof"
-SEED_CSV      = Path("data/processed/vital.csv")
-DATASET_FILE  = OUTPUT_DIR / "raw-data.json"
+SEED_CSV      = Path("data/raw/seed.csv")
+DATASET_FILE  = OUTPUT_DIR / "gen_data.json"
 
 # Constants
 DEPTH         = int(os.getenv("DEPTH", 10))
@@ -38,7 +38,7 @@ BRANCH_FACTOR = int(os.getenv("BRANCH_FACTOR", 15))
 SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
 SPARQL_HEADERS  = {
     "Accept": "application/sparql-results+json",
-    "User-Agent": "QuestionOnGraph/1.0 (liangz.cs@outlook.com)"
+    "User-Agent": "QuestionOnGraph/1.0 (your email)"
 }
 
 WIKIDATA_API   = "https://www.wikidata.org/w/api.php"

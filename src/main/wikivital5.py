@@ -6,7 +6,7 @@ from typing import List, Dict, Iterable
 
 API = "https://en.wikipedia.org/w/api.php"
 ROOT_CAT = "Category:Wikipedia level-5 vital articles"          # :contentReference[oaicite:0]{index=0}
-OUT_CSV  = Path("data/processed/seed.csv")
+OUT_CSV  = Path("data/raw/seed.csv")
 
 def api_get(params: Dict) -> Dict:
     params.update({"format": "json"})

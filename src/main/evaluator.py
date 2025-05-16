@@ -28,7 +28,7 @@ client = OpenAI(api_key=OPENAI_KEY)
 SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
 SPARQL_HEADERS = {
     "Accept": "application/sparql-results+json",
-    "User-Agent": "QuestionOnGraph/1.0 (liangz.cs@outlook.com)"
+    "User-Agent": "QuestionOnGraph/1.0 (your email)"
 }
 
 SPARQL_CHECK = """
@@ -189,6 +189,6 @@ def main(input_path, output_path):
                 count_id += 1
 
 if __name__ == "__main__":
-    input_file = "output/raw-data.json"
-    output_file = "output/data.jsonl"
+    input_file = "data/processed/gen_data.json"
+    output_file = "data/processed/data.jsonl"
     main(input_file, output_file)
