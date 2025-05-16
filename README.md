@@ -8,13 +8,11 @@ This is the second stage of the KGQAGen framework. It interactively generates ch
 ## ⚙️ Requirements
 
 Create a `.env` file in the project root:
-
 ```
 OPENAI_API_KEY=your_api_key_here
 ```
 
 Create your environment:
-
 ```
 conda create -n KGQAGen
 conda activate KGQAGen
@@ -22,7 +20,10 @@ pip install -r requirement.txt
 ```
 ---
 
-## STEP 1. 📂 Run the Seed Extraction Script
+## Prepare: Get Wiki Vital Articles Level 5 as Seed
+
+KGQAGen supports light version using the Wikidata Query Service (WDQS) to execute SPARQL queries over the public Wikidata knowledge graph. This service provides real-time access to structured facts from Wikidata and supports complex graph traversal, filtering, and reasoning.
+
 
 From the project root directory, run:
 
@@ -37,22 +38,6 @@ This script performs the following:
 - Resolves each article to its corresponding **Wikidata QID** using the Wikipedia API
 - Saves the result as a CSV file under `data/raw/seed.csv`
 
----
-
-### 🛠️ File Structure (Simplified)
-
-```
-KGQAGen/
-├── data/
-│   └── raw/
-│       └── seed.csv         # Output: Seed entities with QIDs
-├── src/
-│   └── main/
-│       └── wikivital5.py    # Main script for seed entity extraction
-```
-
----
-
 ### 🔍 Sample Output (`seed.csv`)
 
 | title                       | qid       | url                                                  |
@@ -63,7 +48,7 @@ KGQAGen/
 
 ---
 
-## STEP 2: Generate the dataset by LLM-Guided on KG
+## STEP 1: Generate the dataset by LLM-Guided on KG
 
 Once the `seed.csv` is generated, you can use it to drive subgraph retrieval and question generation for KGQA.
 
@@ -77,15 +62,6 @@ This will:
 2. Use the OpenAI API to generate natural questions with answers and reasoning
 3. Query Wikidata via the default SPARQL endpoint (online or local)
 4. Save results to `data/processed/gen_data.json`
-
----
-
-## 🌐 SPARQL Endpoint Options
-
-By default, the script uses an **online Wikidata endpoint**.  
-If you’ve deployed your own local Virtuoso instance, simply **edit the endpoint URL** in the config or script.
-
-Refer to: `virtuoso/README.md` for instructions on local deployment.
 
 ---
 
@@ -109,7 +85,7 @@ Each line is a complete QA instance with full SPARQL and reasoning trace:
 }
 ```
 
-## STEP 3: Run the Evaluator
+## STEP 2: Run the Evaluator
 
 ```bash
 python src/main/evaluator.py
@@ -151,16 +127,20 @@ Each line is a JSON object, for example:
 
 ## 🌐 SPARQL Endpoint Configuration
 
-By default, an **online Wikidata endpoint** is used.  
-To use your **local Virtuoso server**, change the endpoint URL in `evaluator.py`:
+By default, an **online Wikidata endpoint**, [query.wikidata.org](https://query.wikidata.org/) is used to run SPARQL. To switch between endpoints:
 
 ```python
-ENDPOINT_URL = "http://localhost:8890/sparql"
+ENDPOINT = "https://query.wikidata.org/sparql"  # Public
+# ENDPOINT = "http://localhost:8890/sparql"     # Local Virtuoso
 ```
 
-Refer to `virtuoso/README.md` if you need help setting up the local SPARQL server.
+For large-scale runs, consider using a locally hosted SPARQL endpoint via Virtuoso. Refer to `virtuoso/README.md` if you need help setting up the local SPARQL server.
 
 ---
+
+## Baseline KG-RAG Models
+
+- Check src/baseline/README.md for running and deploy guidance.
 
 ## ✅ Tips
 
