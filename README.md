@@ -65,7 +65,7 @@ This will:
 
 ---
 
-## 💾 Output Format (Line-by-Line JSON)
+## 💾 Output
 
 File: `data/processed/gen_data.json`
 
@@ -99,7 +99,7 @@ The script performs:
 
 ---
 
-## 📤 Output
+## 💾 Output
 
 The verified QA pairs are written to:
 
@@ -138,7 +138,7 @@ For large-scale runs, consider using a locally hosted SPARQL endpoint via Virtuo
 
 ---
 
-## Baseline KG-RAG Models
+## 📊 Baseline KG-RAG Models
 
 - Check src/baseline/README.md for running and deploy guidance.
 
